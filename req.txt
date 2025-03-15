@@ -13,6 +13,7 @@ crispy-bootstrap5==2023.10
 diff-match-patch==20230430
 distlib==0.3.7
 dj-database-url==2.1.0
+gunicorn
 Django==5.0.6
 django-admin-material-dashboard==1.0.10
 django-cors-headers==4.4.0
