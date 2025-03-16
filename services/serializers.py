@@ -7,6 +7,8 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ServiceProviderSerializer(serializers.ModelSerializer):
+    service = serializers.CharField(source='service.name', read_only=True)  # Only show service name
+
     class Meta:
         model = ServiceProvider
         fields = ['id', 'profile_pic', 'name', 'description', 'service', 'rating', 'availability', 'experience', 'global_number']
