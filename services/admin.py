@@ -1,5 +1,6 @@
 from django.contrib import admin
-from import_export import resources
+from import_export import resources, fields
+from import_export.widgets import ForeignKeyWidget
 from import_export.admin import ImportExportModelAdmin
 from .models import Service, ServiceProvider, GlobalSettings
 
@@ -11,11 +12,18 @@ class ServiceAdmin(admin.ModelAdmin):
 
 # ServiceProvider Resource for Import/Export
 class ServiceProviderResource(resources.ModelResource):
+    service = fields.Field(
+        column_name='service',
+        attribute='service',
+        widget=ForeignKeyWidget(Service, 'name')  # Ensures correct mapping
+    )
+
     class Meta:
         model = ServiceProvider
         fields = ('id', 'name', 'profile_pic', 'description', 'service', 'rating', 
-                 'availability', 'experience')
-        export_order = fields
+                  'availability', 'experience')
+        export_order = ('id', 'name', 'profile_pic', 'description', 'service', 'rating', 
+                        'availability', 'experience')
 
 # Register ServiceProvider Model with Import/Export functionality
 @admin.register(ServiceProvider)
