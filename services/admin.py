@@ -8,9 +8,7 @@ from import_export.widgets import ForeignKeyWidget, BooleanWidget
 class ServiceProviderResource(resources.ModelResource):
     id = fields.Field(
         column_name='id',
-        attribute='id',
-        widgets=[fields.widgets.IntegerWidget()],
-        saves_null_values=False
+        attribute='id'
     )
     
     service = fields.Field(
@@ -27,16 +25,12 @@ class ServiceProviderResource(resources.ModelResource):
 
     rating = fields.Field(
         column_name='rating',
-        attribute='rating',
-        widget=fields.widgets.FloatWidget(),
-        default=0.0
+        attribute='rating'
     )
 
     experience = fields.Field(
         column_name='experience',
-        attribute='experience',
-        widget=fields.widgets.FloatWidget(),
-        default=0.0
+        attribute='experience'
     )
 
     class Meta:
