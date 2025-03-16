@@ -7,17 +7,9 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ServiceProviderSerializer(serializers.ModelSerializer):
-    service = ServiceSerializer(read_only=True)  
-    global_number = serializers.SerializerMethodField()
-
     class Meta:
         model = ServiceProvider
-        fields = '__all__'  
-    
-    def get_fields(self):
-        fields = super().get_fields()
-        fields['global_number'] = serializers.SerializerMethodField()
-        return fields
-  
+        fields = ['id', 'profile_pic', 'name', 'description', 'service', 'rating', 'availability', 'global_number']
+
     def get_global_number(self, obj):
         return obj.global_number  

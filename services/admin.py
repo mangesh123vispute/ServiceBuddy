@@ -16,6 +16,7 @@ class ServiceProviderResource(resources.ModelResource):
         model = ServiceProvider
         exclude = ('id',)  # Exclude 'id' from import
         import_id_fields = ['name']  # Identify records by 'name' instead of 'id'
+        fields = ('name', 'profile_pic', 'description', 'service', 'rating', 'availability')
 
 # Register Service model with all fields visible
 @admin.register(Service)
@@ -27,7 +28,8 @@ class ServiceAdmin(admin.ModelAdmin):
 @admin.register(ServiceProvider)
 class ServiceProviderAdmin(ImportExportModelAdmin):
     resource_class = ServiceProviderResource
-    list_display = [field.name for field in ServiceProvider._meta.fields]  # Show all fields
+    list_display = ('name', 'service', 'rating', 'availability')  # Customized list display
+    list_filter = ('service', 'availability')  # Add filters
     search_fields = ('name', 'service__name')
 
 # Register GlobalSettings model with all fields visible

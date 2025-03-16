@@ -12,6 +12,8 @@ class ServiceProvider(models.Model):
     name = models.TextField() 
     description = models.TextField(blank=True, null=True)
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='providers')
+    rating = models.FloatField(default=0.0, blank=True, null=True)
+    availability = models.BooleanField(default=True)
 
     @property
     def global_number(self):
