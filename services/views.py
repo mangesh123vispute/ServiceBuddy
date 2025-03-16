@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import generics, status
+from django.shortcuts import get_object_or_404
 from .models import Service, ServiceProvider
 from .serializers import ServiceSerializer, ServiceProviderSerializer
 
@@ -31,11 +32,20 @@ class ServiceProviderListView(generics.ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-# 3. /services/<service_id>/<provider_id>/ - Get details of a specific service provider
+# 3. /services/<service_name>/<provider_id>/ - Get details of a specific service provider
 class ServiceProviderDetailView(generics.RetrieveAPIView):
     serializer_class = ServiceProviderSerializer
 
     def get_object(self):
-        service_id = self.kwargs.get("service_id")
+        service_name = self.kwargs.get("service_name")
         provider_id = self.kwargs.get("service_provider_id")
-        return ServiceProvider.objects.get(id=provider_id, service_id=service_id)
+        
+        # Get the service by name (case-insensitive)
+        service = get_object_or_404(Service, name__iexact=service_name)
+        
+        # Get the service provider
+        return get_object_or_404(
+            ServiceProvider,
+            id=provider_id,
+            service=service
+        )
