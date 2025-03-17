@@ -1,5 +1,5 @@
 from django.contrib import admin
-from import_export.admin import ExportMixin
+from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget
 from .models import Service, ServiceProvider, GlobalSettings
@@ -20,7 +20,7 @@ class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name', 'icon_link')
 
 @admin.register(ServiceProvider)
-class ServiceProviderAdmin(ExportMixin, admin.ModelAdmin):
+class ServiceProviderAdmin(ImportExportModelAdmin):
     resource_class = ServiceProviderResource
     list_display = ('name', 'service', 'rating', 'availability', 'experience')
     search_fields = ('name', 'service__name')
