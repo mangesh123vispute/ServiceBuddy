@@ -18,14 +18,14 @@ class ServiceProviderResource(resources.ModelResource):
 @admin.register(ServiceProvider)
 class ServiceProviderAdmin(ImportExportModelAdmin):
     resource_class = ServiceProviderResource
-    list_display = ('name', 'service', 'rating', 'availability', 'experience')
+    list_display = ('id','name', 'service', 'rating', 'availability', 'experience')
     search_fields = ('name', 'service__id')
     list_filter = ('availability', 'service')
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'icon_link')
+    list_display = ('id','name', 'icon_link')
 
 @admin.register(GlobalSettings)
 class GlobalSettingsAdmin(admin.ModelAdmin):
-    list_display = ('service_provider_number',)
+    list_display = ('id','service_provider_number',)
