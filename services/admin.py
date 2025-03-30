@@ -8,7 +8,7 @@ class ServiceProviderResource(resources.ModelResource):
     service = fields.Field(
         column_name='service',
         attribute='service',
-        widget=ForeignKeyWidget(Service, field='id')  # Maps directly using service ID
+        widget=ForeignKeyWidget(Service, field='id') 
     )
 
     class Meta:
@@ -22,9 +22,16 @@ class ServiceProviderAdmin(ImportExportModelAdmin):
     search_fields = ('name', 'service__id')
     list_filter = ('availability', 'service')
 
+class ServiceResource(resources.ModelResource):
+    class Meta:
+        model = Service
+        fields = ('id', 'name', 'icon_link')
+
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'icon_link')
+class ServiceAdmin(ImportExportModelAdmin):
+    resource_class = ServiceResource
+    list_display = ('id', 'name', 'icon_link')
+    search_fields = ('name',)
 
 @admin.register(GlobalSettings)
 class GlobalSettingsAdmin(admin.ModelAdmin):
