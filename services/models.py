@@ -3,6 +3,7 @@ from django.db import models
 class Service(models.Model):
     name = models.TextField()  
     icon_link = models.TextField(blank=True, null=True)
+    order = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name

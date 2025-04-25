@@ -30,8 +30,9 @@ class ServiceResource(resources.ModelResource):
 @admin.register(Service)
 class ServiceAdmin(ImportExportModelAdmin):
     resource_class = ServiceResource
-    list_display = ('id', 'name', 'icon_link')
+    list_display = ('id', 'name', 'order', 'icon_link')
     search_fields = ('name',)
+    list_editable = ('order',)
 
 @admin.register(GlobalSettings)
 class GlobalSettingsAdmin(admin.ModelAdmin):
