@@ -18,7 +18,7 @@ class ServiceProviderListView(generics.ListAPIView):
         try:
             # Case-insensitive search for service name
             service = Service.objects.get(name__iexact=service_name)
-            return ServiceProvider.objects.filter(service=service)
+            return ServiceProvider.objects.filter(services=service)
         except Service.DoesNotExist:
             return ServiceProvider.objects.none()
 
@@ -47,5 +47,5 @@ class ServiceProviderDetailView(generics.RetrieveAPIView):
         return get_object_or_404(
             ServiceProvider,
             id=provider_id,
-            service=service
+            services=service
         )

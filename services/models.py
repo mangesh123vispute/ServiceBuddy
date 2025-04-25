@@ -12,7 +12,7 @@ class ServiceProvider(models.Model):
     profile_pic = models.TextField(blank=True, null=True)   
     name = models.TextField() 
     description = models.TextField(blank=True, null=True)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='providers')
+    services = models.ManyToManyField(Service, related_name='providers')
     rating = models.FloatField(default=0.0, blank=True, null=True)
     availability = models.BooleanField(default=True)
     experience = models.FloatField(default=0.0, help_text="Experience in years", blank=True, null=True)

@@ -5,22 +5,27 @@ from import_export.widgets import ForeignKeyWidget
 from .models import Service, ServiceProvider, GlobalSettings
 
 class ServiceProviderResource(resources.ModelResource):
-    service = fields.Field(
-        column_name='service',
-        attribute='service',
-        widget=ForeignKeyWidget(Service, field='id') 
+    services = fields.Field(
+        column_name='services',
+        attribute='services',
+        widget=ForeignKeyWidget(Service, field='id')
     )
 
     class Meta:
         model = ServiceProvider
-        fields = ('id', 'name', 'description', 'service', 'rating', 'availability', 'experience')
+        fields = ('id', 'name', 'description', 'services', 'rating', 'availability', 'experience')
 
 @admin.register(ServiceProvider)
 class ServiceProviderAdmin(ImportExportModelAdmin):
     resource_class = ServiceProviderResource
-    list_display = ('id','name', 'service', 'rating', 'availability', 'experience')
-    search_fields = ('name', 'service__id')
-    list_filter = ('availability', 'service')
+    list_display = ('id', 'name', 'get_services', 'rating', 'availability', 'experience')
+    search_fields = ('name', 'services__name')
+    list_filter = ('availability', 'services')
+    filter_horizontal = ('services',)
+
+    def get_services(self, obj):
+        return ", ".join([service.name for service in obj.services.all()])
+    get_services.short_description = 'Services'
 
 class ServiceResource(resources.ModelResource):
     class Meta:
