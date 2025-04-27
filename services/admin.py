@@ -45,9 +45,9 @@ class GlobalSettingsAdmin(admin.ModelAdmin):
 
 @admin.register(CustomerRequest)
 class CustomerRequestAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'service', 'mobile_number', 'preferred_time_slot', 'delivery_date', 'formatted_timestamp', 'completed')
-    list_filter = ('completed', 'service', 'timestamp')
-    search_fields = ('name', 'mobile_number', 'address', 'service__name')
+    list_display = ('id', 'name', 'service', 'service_provider', 'mobile_number', 'preferred_time_slot', 'delivery_date', 'formatted_timestamp', 'completed')
+    list_filter = ('completed', 'service', 'timestamp', 'service_provider')
+    search_fields = ('name', 'mobile_number', 'address', 'service__name', 'service_provider__name')
     readonly_fields = ('timestamp',)
     date_hierarchy = 'timestamp'
     ordering = ('-timestamp',)
@@ -62,7 +62,7 @@ class CustomerRequestAdmin(admin.ModelAdmin):
             'fields': ('name', 'mobile_number', 'address')
         }),
         ('Service Details', {
-            'fields': ('service', 'preferred_time_slot', 'delivery_date')
+            'fields': ('service', 'service_provider', 'preferred_time_slot', 'delivery_date')
         }),
         ('Status', {
             'fields': ('completed', 'timestamp')

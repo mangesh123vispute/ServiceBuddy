@@ -40,6 +40,7 @@ class CustomerRequest(models.Model):
     delivery_date = models.CharField(max_length=50, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField(default=False)
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.SET_NULL, null=True, blank=True, related_name='customer_requests')
 
     def __str__(self):
         return f"Request by {self.name} for {self.service}"

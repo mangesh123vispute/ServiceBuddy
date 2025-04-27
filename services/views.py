@@ -66,6 +66,7 @@ class CustomerRequestCreateView(generics.CreateAPIView):
             context = {
                 'name': customer_request.name,
                 'service': customer_request.service,
+                'service_provider': customer_request.service_provider.name if customer_request.service_provider else None,
                 'time_slot': customer_request.preferred_time_slot,
                 'delivery_date': customer_request.delivery_date,
                 'address': customer_request.address,

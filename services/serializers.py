@@ -24,7 +24,7 @@ class ServiceProviderSerializer(serializers.ModelSerializer):
 class CustomerRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerRequest
-        fields = ['id', 'name', 'mobile_number', 'service', 'address', 'preferred_time_slot', 'delivery_date', 'timestamp', 'completed']
+        fields = ['id', 'name', 'mobile_number', 'service', 'address', 'preferred_time_slot', 'delivery_date', 'timestamp', 'completed', 'service_provider']
         read_only_fields = ['timestamp', 'completed']  
 
 class CommentsSerializer(serializers.ModelSerializer):
