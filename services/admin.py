@@ -80,5 +80,5 @@ class CommentsAdmin(admin.ModelAdmin):
     
     def formatted_timestamp(self, obj):
         return timezone.localtime(obj.timestamp).strftime('%d %b %Y, %I:%M %p')
-    formatted_timestamp.short_description = 'Comment Time'
+    formatted_timestamp.short_description = 'Comment Time (IST)'
     formatted_timestamp.admin_order_field = 'timestamp'
