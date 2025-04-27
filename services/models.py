@@ -19,8 +19,8 @@ class ServiceProvider(models.Model):
 
     @property
     def global_number(self):
-        global_settings = GlobalSettings.objects.first()
-        return global_settings.service_provider_number if global_settings else 100  
+        global_settings = GlobalSettings.objects.all()
+        return [settings.service_provider_number for settings in global_settings] if global_settings else [100]
 
     def __str__(self):
         return self.name
@@ -31,3 +31,15 @@ class GlobalSettings(models.Model):
     def __str__(self):
         return f"Service Provider Number: {self.service_provider_number}"
 
+class CustomerRequest(models.Model):
+    name = models.CharField(max_length=255)
+    mobile_number = models.CharField(max_length=20)
+    service = models.TextField()
+    address = models.TextField()
+    preferred_time_slot = models.CharField(max_length=50)
+    delivery_date = models.CharField(max_length=50, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Request by {self.name} for {self.service}"
