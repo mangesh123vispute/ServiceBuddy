@@ -71,9 +71,9 @@ class CustomerRequestAdmin(admin.ModelAdmin):
 
 @admin.register(Comments)
 class CommentsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'service_provider', 'service', 'service_receiver_name', 'formatted_timestamp', 'comment')
+    list_display = ('id', 'service_provider', 'service', 'formatted_timestamp', 'comment')
     list_filter = ('service_provider', 'service', 'timestamp')
-    search_fields = ('service_receiver_name', 'comment', 'service_provider__name', 'service__name')
+    search_fields = ('comment', 'service_provider__name', 'service__name')
     readonly_fields = ('timestamp',)
     date_hierarchy = 'timestamp'
     ordering = ('-timestamp',)
