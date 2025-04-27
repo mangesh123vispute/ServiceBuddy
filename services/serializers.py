@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Service, ServiceProvider, CustomerRequest
+from .models import Service, ServiceProvider, CustomerRequest, Comments
 
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,3 +26,9 @@ class CustomerRequestSerializer(serializers.ModelSerializer):
         model = CustomerRequest
         fields = ['id', 'name', 'mobile_number', 'service', 'address', 'preferred_time_slot', 'delivery_date', 'timestamp', 'completed']
         read_only_fields = ['timestamp', 'completed']  
+
+class CommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = ['id', 'service_provider', 'service', 'comment', 'service_receiver_name', 'timestamp']
+        read_only_fields = ['timestamp']  

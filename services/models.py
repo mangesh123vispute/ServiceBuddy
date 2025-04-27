@@ -43,3 +43,16 @@ class CustomerRequest(models.Model):
 
     def __str__(self):
         return f"Request by {self.name} for {self.service}"
+
+class Comments(models.Model):
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, related_name='comments')
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='comments')
+    comment = models.TextField()
+    service_receiver_name = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comment by {self.service_receiver_name} for {self.service_provider.name}"
+
+    class Meta:
+        ordering = ['-timestamp']

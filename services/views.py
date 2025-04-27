@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import generics, status
 from django.shortcuts import get_object_or_404
-from .models import Service, ServiceProvider, CustomerRequest
-from .serializers import ServiceSerializer, ServiceProviderSerializer, CustomerRequestSerializer
+from .models import Service, ServiceProvider, CustomerRequest, Comments
+from .serializers import ServiceSerializer, ServiceProviderSerializer, CustomerRequestSerializer, CommentsSerializer
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -91,5 +91,16 @@ class CustomerRequestCreateView(generics.CreateAPIView):
                 # Log the error but don't fail the request
                 print(f"Failed to send email: {str(e)}")
             
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CommentsCreateView(generics.CreateAPIView):
+    serializer_class = CommentsSerializer
+    queryset = Comments.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
